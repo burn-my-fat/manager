@@ -3,7 +3,8 @@ import { Actions } from 'react-native-router-flux';
 import {
   EMPLOYEE_UPDATE,
   EMPLOYEE_CREATE,
-  EMPLOYEES_FETCH_SUCCESS
+  EMPLOYEES_FETCH_SUCCESS,
+  EMPLOYEE_CLEAR_SUCCESS
 } from './types';
 
 export const employeeUpdate = ({ prop, value }) => {
@@ -43,6 +44,10 @@ export const employeeSave = ({ name, phone, shift, uid }) => {
   return () => {
     firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
       .set({ name, phone, shift })
-      .then(() => console.log('saved!'));
+      .then(() => Actions.pop());
   };
+};
+
+export const employeeClear = () => {
+  return ({ type: EMPLOYEE_CLEAR_SUCCESS });
 };
